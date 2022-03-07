@@ -1,0 +1,51 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Category</title>
+   
+   {% include 'headerfiles.html'  %}
+</head>
+<body>
+ {% include "adminheader.html" %}
+ <div class="row first-info" style="background-image: url({% static 'images/flower2.jpg' %})" width="1366px">
+
+<div class="container">
+    <br>
+    <h1 align="center" style="background-color: pink"><b>ADD CATEGORY</b></h1>
+    <br>
+    <br>
+    <br>
+    <form action="insertcategory" method="get" id="form1">
+        <div class="form-group">
+            <b>Enter Category Name</b>
+            <input type="text" name="catname" class="form-control" data-rule-required="true">
+        </div>
+
+        <div class="form-group">
+            <b>Enter Description</b>
+            <input type="text" name="description"  class="form-control" data-rule-required="true">
+        </div>
+
+        <div class="form-group">
+
+            <input type="submit" class="btn btn-success" value="ADD">
+        </div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+    </form>
+</div>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

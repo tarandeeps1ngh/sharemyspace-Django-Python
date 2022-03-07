@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+  {% include 'headerfiles.html'  %}
+</head>
+<body>
+{% include "publicheader.html" %}
+<div class="row first-info" style="background-image: url({% static 'images/back3.jpg' %})" >
+
+<div class="container">
+    <form action="insertuser" method="post" id="form1" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+    <h1 align="center"><b>USER SIGNUP</b></h1>
+        </div>
+        <div class="form-group">
+            Enter Email
+            <input type="email" name="email" class="form-control" data-rule-required="true">
+        </div>
+        <div class="form-group">
+            Enter Full Name
+            <input type="text" name="fullname" class="form-control" data-rule-required="true">
+        </div>
+        <div class="form-group">
+            Enter Mobile Number
+            <input type="tel" name="mobileno" class="form-control" maxlength="13" minlength="10" data-rule-required="true">
+        </div>
+        <div class="form-group">
+            Enter Dob
+            <input type="date" name="dob" class="form-control" data-rule-required="true">
+        </div>
+        <div class="form-group">
+            Enter Password
+            <input type="password" name="newpassword" id="newpassword" class="form-control" maxlength="8" data-rule-required="true">
+        </div>
+
+         <div class="form-group">
+            Confirm Password
+            <input type="password" name="confirmpassword" class="form-control" data-rule-equalto="#newpassword" >
+        </div>
+
+        <div class="form-group">
+            Enter Aadhaar Number
+            <input type="text" name="aadhaar" class="form-control" data-rule-required="true">
+        </div>
+        <div class="form-group">
+          Choose Photo
+            <input type="file" name="photo">
+        </div>
+        <div class="form-group">
+          Choose UserType
+            <select name="usertype" class="form-control">
+                <option value="Tenant">Tenant</option>
+                <option value="Landlord">Landlord</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-success" value="SIGNUP">
+        </div>
+
+    </form>
+</div>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

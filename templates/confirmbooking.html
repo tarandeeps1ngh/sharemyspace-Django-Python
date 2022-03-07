@@ -1,0 +1,99 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Booking</title>
+    {% include 'headerfiles.html'  %}
+    <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+</head>
+<body>
+{% include 'userheader.html' %}
+<div class="row first-info" style="background-image: url({% static 'images/back15.jpg' %})" width="100%">
+
+<div class="container">
+    <br>
+    <div class="col-12">
+        <h1 class="text-center headings mb-4" style="color: green"><b>CONFIRM BOOKING</b></h1>
+        <br>
+
+        <div class="row">
+
+
+            <div class="form-group col-6">
+                <table class="table table-dark">
+                    <tr>
+
+                        <th>Email:-</th>
+                        <th><span class="text-info">{{ email }}</span></th>
+                    </tr>
+                    <tr>
+                        <th>Booking ID:-</th>
+                        <th><span class="text-info">{{ bid }}</span></th>
+
+                    </tr>
+                    <tr>
+                        <th>Booker Name:-</th>
+                        <th><span class="text-info">{{ name }}</span></th>
+
+                    </tr>
+
+                    <tr>
+                        <th>Mobile No.:-</th>
+                        <th><span class="text-info">{{ mobileno }}</span></th>
+
+                    </tr>
+                </table>
+
+            </div>
+
+            <div class="form-group col-6">
+
+                <table class="table table-dark">
+
+                    <tr>
+
+                        <th>Title:-</th>
+                        <th><span class="text-info">{{ title }}</span></th>
+                    </tr>
+
+                    <tr>
+
+                        <th>Room ID:-</th>
+                        <th><span class="text-info">{{ roomid }}</span></th>
+                    </tr>
+
+                    <tr>
+
+                        <th>No. of person:-</th>
+                        <th><span class="text-info">{{ noofperson }}</span></th>
+                    </tr>
+
+                    <tr>
+
+                        <th>Total Cost:-</th>
+                        <th><span class="text-info">{{ totalcost }}</span></th>
+                    </tr>
+
+                </table>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2 offset-10">
+                <a href="/" class="btn btn-danger">Home</a>
+            </div>
+
+        </div>
+
+    </div>
+    <br><br><br><br><br><br><br><br>
+</div>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

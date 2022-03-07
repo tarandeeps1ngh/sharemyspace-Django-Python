@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Bookings</title>
+{% include 'headerfiles.html'  %}
+</head>
+<body>
+{% include "userheader.html" %}
+
+<div class="container">
+<div class="col-md-12">
+<br>
+    <h1 class="text-center" ><b>My Bookings</b></h1>
+<br>
+    <table class="table table-bordered">
+        <tr>
+            <th>Booking ID</th>
+            <th>Booking Date</th>
+            <th>Name</th>
+            <th>Room</th>
+            <th>Mobileno</th>
+            <th>Dates</th>
+            <th>Amount</th>
+        </tr>
+        {% for row in x %}
+            <tr>
+            <th>{{ row.bookingid }}</th>
+            <th>{{ row.bookingdate }}</th>
+            <th>{{ row.bookername }}</th>
+            <th>{{ row.title }}</th>
+            <th>{{ row.mobileno }}</th>
+            <th>{{ row.date }}</th>
+            <th>&#8377; {{ row.amount }}</th>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

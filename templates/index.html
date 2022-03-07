@@ -1,0 +1,506 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    {% include 'headerfiles.html' %}
+</head>
+<body>
+<!-- main -->
+	<div id="home">
+		<!-- header -->
+		{% include 'toplinks.html' %}
+		<!-- //header -->
+
+		<!-- banner -->
+		<div class="banner_w3lspvt">
+			<div class="csslider infinity" id="slider1">
+				<input type="radio" name="slides" checked="checked" id="slides_1" />
+				<input type="radio" name="slides" id="slides_2" />
+				<input type="radio" name="slides" id="slides_3" />
+				<ul class="banner_slide_bg">
+					<li class="banner-top1">
+						<div class="container">
+							<div class="banner-text">
+								<h3 class="text-wh text-uppercase mb-md-4 mb-3" style="color: #0b2e13">Enjoy your <span><b>stay</b></span></h3>
+								<p class="movetxt text-li font-weight-light">Wonderful memories</p>
+								<a href="#about" class="button-style btn mt-sm-5 mt-4">Read More</a>
+							</div>
+						</div>
+					</li>
+					<li class="banner-top2">
+						<div class="container">
+							<div class="banner-text text-center">
+								<h3 class="text-wh text-uppercase mb-md-4 mb-3" style="color: #0b2e13">Enjoy the <span><b>stay</b></span></h3>
+								<p class="movetxt text-li font-weight-light">Wonderful day</p>
+								<a href="#about" class="button-style btn mt-sm-5 mt-4">Read More</a>
+							</div>
+						</div>
+					</li>
+					<li class="banner-top3">
+						<div class="container">
+							<div class="banner-text text-right">
+								<h3 class="text-wh text-uppercase mb-md-4 mb-3" style="color: orangered">Enjoy the <span><b>stay</b></span></h3>
+								<p class="movetxt text-li font-weight-light">Wonderful day</p>
+								<a href="#about" class="button-style btn mt-sm-5 mt-4">Read More</a>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="navigation">
+					<div>
+						<label for="slides_1"></label>
+						<label for="slides_2"></label>
+						<label for="slides_3"></label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //banner -->
+	</div>
+	<!-- //main -->
+
+	<!-- about -->
+	<div class="about py-5" id="about">
+		<div class="container py-xl-5 py-lg-3">
+			<h3 class="title text-center text-bl mb-5" style="color: white">Welcome to our Website
+			</h3>
+			<div class="row about-bottom-w3l text-center pt-xl-5 pt-lg-4">
+				<div class="col-sm-6 about-grid">
+					<div class="about-grid-main">
+						<img src="{% static 'images/a1.png' %}" alt="" class="img-fluid">
+						<h4 class="mt-4 mb-3">Beautifully Designed</h4>
+						<p> Share My Space has every single element re-engineered to deliver higher quality and better value.</p>
+					</div>
+				</div>
+				<div class="col-sm-6 about-grid mt-sm-0 mt-4">
+					<div class="about-grid-main">
+						<img src="{% static 'images/a2.png' %}" alt="" class="img-fluid">
+						<h4 class="mt-4 mb-3">Large Spacious Beds</h4>
+						<p>Every home in Share My Space must pass an in-person quality inspection to ensure it meets high standards of comfort, quality, and style.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //about -->
+
+	<!-- stats -->
+	<div class="w3ls-middle py-5" id="stats">
+		<div class="container-fluid py-xl-5 py-lg-3">
+			<h3 class="title text-center text-bl mb-sm-5 mb-4">Our Statistics
+				<span class="mt-2">some more</span>
+			</h3>
+			<div class="row pt-xl-5">
+				<div class="col-lg-6 text-center mt-lg-3">
+					<img src="{% static 'images/3.png' %}" alt="" class="img-fluid chef-img">
+				</div>
+				<div class="col-lg-4 pl-lg-5 mt-lg-0 mt-4">
+					<div class="service1-wthree">
+						<h4>Number of Reviews</h4>
+						<h6 class="text-bl mt-3 mb-2">264</h6>
+						<p>Most of the rooms are rated 5 star by our guests</p>
+					</div>
+					<div class="service1-wthree my-xl-5 my-lg-4 my-sm-5 my-4">
+						<h4>Rooms Booked Till Date</h4>
+						<h6 class="text-bl mt-3 mb-2">763</h6>
+						<p>Share My Space is the most used site and has the highest number of rooms booked till date</p>
+					</div>
+					<div class="service1-wthree">
+						<h4 style="color: darkred">Happy Customers</h4>
+						<h6 class="text-bl mt-3 mb-2">1602</h6>
+						<p>Share My Space offers rooms at prices that no other player in the budget segment offers today.</p>
+					</div>
+				</div>
+				<div class="offset-lg-2"></div>
+			</div>
+		</div>
+	</div>
+	<!-- //stats -->
+
+	<!-- features -->
+	<div class="w3ls-middle-works py-sm-5 py-4" id="what">
+		<h3 class="title text-center text-bl mb-5">What we do for you
+			<span class="mt-2">Our Best Features</span>
+		</h3>
+		<div class="special-agiles">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-3 col-lg-6 grids-w3ls-left py-5">
+						<div class="py-xl-5 py-lg-3">
+							<h2 style="color: white"><b>OUR FEATURES</b></h2>
+							<h2>&nbsp</h2>
+                            <h6 class=" text-bl mb-md-4"><b>List your space</b></h6>
+							<h6 class="title text-bl mb-md-4"><b>Message System</b></h6>
+							<h6 class="title text-bl mb-md-4"><b>Administrator has full control</b></h6>
+							<h6 class="title text-bl mb-md-4"><b>Highly customizable</b></h6>
+							<h6 class="title text-bl mb-md-4"><b>Search Rooms by city</b></h6>
+							<h6 class="title text-bl mb-md-4"><b>Check your Bookings</b></h6>
+							<h6 class="title text-bl mb-md-4"><b>Provide Ratings and Reviews</b></h6>
+                            <a href="#about" class="button-style button-style-2 btn mt-lg-5 mt-4">Read More</a>
+						</div>
+					</div>
+					<div class="offset-xl-3 col-lg-6 grids-w3ls-right">
+						<img src="{% static 'images/middle.jpg' %}" alt="" class="img-fluid">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //features -->
+
+	<!-- discount -->
+	<div class="agile-wthree-works py-lg-5 pb-lg-0 pb-3" id="dis">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 img-left-posi text-lg-left text-center">
+					<img src="{% static 'images/middle-2.png' %}" alt="" class="img-fluid">
+				</div>
+				<div class="col-xl-5 col-lg-6 grids-w3ls-right-2 py-xl-5 py-lg-3 mt-lg-0 mt-4">
+					<h3 class="title text-bl mb-lg-5 mb-4">Seasonal Discount
+						<span class="mt-2">Upto 70% Off</span>
+					</h3>
+					<h4 class="title text-bl mb-sm-5 mb-4">Now save big on room bookings with exclusive deals on Share My Space</h4>
+					<p>Your search ends here. We know that you like vacations, so we aim to bring to you Share My Space rooms deals. You can get exciting Share My Space offers on this page .</p>
+				</div>
+				<div class="offset-xl-1"></div>
+			</div>
+		</div>
+	</div>
+	<!-- //discount -->
+
+	<!-- gallery -->
+	<div class="gallery py-5" id="gallery">
+		<div class="container py-xl-5 py-lg-3">
+			<h3 class="title text-center text-bl mb-5">Our Gallery
+				<span class="mt-2">view photos of our premium rooms</span>
+			</h3>
+			<div class="news-grids text-center pt-xl-4">
+				<div class="row news-grids text-center">
+					<div class="col-md-4 gal-img">
+						<a href="#gal1"><img src="{% static 'images/g1.jpg' %}" alt="news image" class="img-fluid"></a>
+						<a href="#gal2"><img src="{% static 'images/g2.jpg' %}" alt="news image" class="img-fluid mt-4"></a>
+						<a href="#gal9"><img src="{% static 'images/g9.jpg' %}" alt="news image" class="img-fluid mt-4"></a>
+					</div>
+					<div class="col-md-4 gal-img my-md-0 my-4">
+						<a href="#gal3"><img src="{% static 'images/g3.jpg' %}" alt="news image" class="img-fluid"></a>
+						<a href="#gal4"><img src="{% static 'images/g4.jpg' %}" alt="news image" class="img-fluid mt-4"></a>
+						<a href="#gal8"><img src="{% static 'images/g8.jpg' %}" alt="news image" class="img-fluid mt-4"></a>
+					</div>
+					<div class="col-md-4 gal-img">
+						<a href="#gal5"><img src="{% static 'images/g5.jpg' %}" alt="news image" class="img-fluid"></a>
+						<a href="#gal7"><img src="{% static 'images/g7.jpg' %}" alt="news image" class="img-fluid mt-4"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- popup-->
+	<div id="gal1" class="popup-effect animate">
+		<div class="popup">
+			<img src="{% static 'images/g1.jpg' %}" alt="Popup Image" class="img-fluid" />
+			<p class="mt-4">Cozy, warm atmosphere, perfect for the traveler </p>
+			<a class="close" href="#gallery">&times;</a>
+		</div>
+	</div>
+	<!-- //popup -->
+	<!-- popup-->
+	<div id="gal2" class="popup-effect animate">
+		<div class="popup">
+			<img src="{% static 'images/g2.jpg' %}" alt="Popup Image" class="img-fluid" />
+			<p class="mt-4">This clean and very comfortable room has spectacular views of downtown</p>
+			<a class="close" href="#gallery">&times;</a>
+		</div>
+	</div>
+	<!-- //popup -->
+	<!-- popup-->
+	<div id="gal3" class="popup-effect animate">
+		<div class="popup">
+			<img src="{% static 'images/g3.jpg' %}" alt="Popup Image" class="img-fluid" />
+			<p class="mt-4">The neighborhood is very safe with plenty of restaurants, shops, and bars. There are over 50 house plants specifically chosen to purify the air.</p>
+			<a class="close" href="#gallery">&times;</a>
+		</div>
+	</div>
+	<!-- //popup3 -->
+	<!-- popup-->
+	<div id="gal4" class="popup-effect animate">
+		<div class="popup">
+			<img src="{% static 'images/g4.jpg' %}" alt="Popup Image" class="img-fluid" />
+			<p class="mt-4">Historic loft with luxury amenities. Private keyed elevator opens into sun-filled loft with hardwood floors, state-of-the-art kitchen with Miele appliances, and central air conditioning.</p>
+			<a class="close" href="#gallery">&times;</a>
+		</div>
+	</div>
+	<!-- //popup -->
+	<!-- popup-->
+	<div id="gal5" class="popup-effect animate">
+		<div class="popup">
+			<img src="{% static 'images/g5.jpg' %}" alt="Popup Image" class="img-fluid" />
+			<p class="mt-4">An urban oasis outfitted for even the most discerning traveler. Whether you are visiting friends, traveling for work, or ready to live like a local Apt. 6 is where you'll want to relax after a day of enjoying the city.</p>
+			<a class="close" href="#gallery">&times;</a>
+		</div>
+	</div>
+	<!-- //popup -->
+	<!-- popup-->
+	<div id="gal7" class="popup-effect animate">
+		<div class="popup">
+			<img src="{% static 'images/g7.jpg' %}" alt="Popup Image" class="img-fluid" />
+			<p class="mt-4">Very spacious loft apartment ( about 2000 sq feet, 188 sq m, at last measure - so very BIG for New York) in the center of arguably the coolest area of the city (please do not argue ), modern, minimalist furniture , very open, very clean, I take great pride in having a spotless living environment (that goes for the host too).</p>
+			<a class="close" href="#gallery">&times;</a>
+		</div>
+	</div>
+	<!-- //popup -->
+	<!-- popup-->
+	<div id="gal8" class="popup-effect animate">
+		<div class="popup">
+			<img src="{% static 'images/g8.jpg' %}" alt="Popup Image" class="img-fluid" />
+			<p class="mt-4">This is a very large and comfortable space that you will be free to enjoy as you wish (this is your vacation after all). You will have lots of privacy and as well as the city, you have Books, Music (great as mentioned above), Roku TV with lots of channels and an online DVR and more .... or just relax and chat. Up to you.</p>
+			<a class="close" href="#gallery">&times;</a>
+		</div>
+	</div>
+	<!-- //popup -->
+	<!-- popup-->
+	<div id="gal9" class="popup-effect animate">
+		<div class="popup">
+			<img src="{% static 'images/g9.jpg' %}" alt="Popup Image" class="img-fluid" />
+			<p class="mt-4"> We are close to the city center and most attractive touristic sites and we have good connectivity with local transport.</p>
+			<a class="close" href="#gallery">&times;</a>
+		</div>
+	</div>
+	<!-- //popup -->
+	<!-- //gallery -->
+
+	<!-- price-->
+	<div class="price-sec py-5" id="price">
+		<div class="container py-xl-5 py-lg-3">
+			<h3 class="title text-center text-wh mb-5" style="color: goldenrod">Our Pricing Tables
+			</h3>
+			<div class="row price-grid-main pt-xl-4">
+				<div class="col-lg-4 price-info">
+					<div class="prices-top">
+						<h3 class="text-center text-capitalize text-wh">Rs.700
+							<span>per day</span>
+						</h3>
+					</div>
+					<div class="prices-bottom text-center p-4">
+						<div class="prices-h border-bottom pb-4">
+							<h4>BASIC</h4>
+						</div>
+						<ul class="mt-4">
+							<li>Single Bed</li>
+							<li class="my-3">No Television</li>
+							<li>Non AC</li>
+							<li class="my-3">Limited Water Supply</li>
+							<li>Dining table</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4 price-info my-lg-0 my-5">
+					<div class="prices-top">
+						<h3 class="text-center text-capitalize text-wh">Rs.1800
+							<span>per day</span>
+						</h3>
+					</div>
+					<div class="prices-bottom text-center p-4">
+						<div class="prices-h border-bottom pb-4">
+							<h4>ELITE</h4>
+						</div>
+						<ul class="mt-4">
+							<li>Double Bed</li>
+							<li class="my-3">Comfortable Pillows</li>
+							<li>24-hr water supply</li>
+							<li class="my-3">AC</li>
+							<li>Room Service</li>
+						</ul>
+
+					</div>
+				</div>
+				<div class="col-lg-4 price-info">
+					<div class="prices-top">
+						<h3 class="text-center text-capitalize text-wh">Rs.3600
+							<span>per day</span>
+						</h3>
+					</div>
+					<div class="prices-bottom text-center p-4">
+						<div class="prices-h border-bottom pb-4">
+							<h4>POWER ELITE</h4>
+						</div>
+						<ul class="mt-4">
+							<li>King size Bed</li>
+							<li class="my-3">Power Backup</li>
+							<li>Television with Home Theater </li>
+							<li class="my-3">Comfortable Sofas</li>
+							<li>Luxury Bathrooms</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+        <a href="signup" class="button btn">Sign Up</a>
+	</div>
+	<!-- //price -->
+
+	<!-- blog -->
+	<section class="blog_w3ls py-5" id="blog">
+		<div class="container py-xl-5 py-lg-3">
+			<h3 class="title text-center text-bl mb-5">Our Blog
+				<span class="mt-2">Latest Posts</span>
+			</h3>
+			<div class="row">
+				<!-- blog grid -->
+				<div class="col-lg-4 col-md-6">
+					<div class="card border-0 med-blog">
+						<div class="card-header p-0">
+							<a>
+								<img class="card-img-bottom" src="{% static 'images/g8.jpg' %}" alt="image">
+							</a>
+						</div>
+						<div class="card-body border border-top-0">
+							<div class="mb-3">
+								<h5 class="blog-title card-title font-weight-bold m-0">
+									<a >spaciously appointed room</a>
+								</h5>
+								<div class="blog_w3icon">
+									<span>
+										Jan 12, 2019 - Mumbai</span>
+								</div>
+							</div>
+							<p>In harmony with being on the highest floor, a premium location, this space was created to be the peak of luxury, and this feeling is brought out </p>
+						</div>
+					</div>
+				</div>
+				<!-- //blog grid -->
+				<!-- blog grid -->
+				<div class="col-lg-4 col-md-6 mt-md-0 mt-5">
+					<div class="card border-0 med-blog">
+						<div class="card-header p-0">
+							<a >
+								<img class="card-img-bottom" src="{% static 'images/g3.jpg' %}" alt="image">
+							</a>
+						</div>
+						<div class="card-body border">
+							<div class="mb-3">
+								<h5 class="blog-title card-title font-weight-bold m-0">
+									<a>Large Spacious Beds</a>
+								</h5>
+								<div class="blog_w3icon">
+									<span>
+										Jan 14, 2019 - Jaipur</span>
+								</div>
+							</div>
+							<p>Guest rooms ranging from standard to suites are available, providing an array of room choices each offering true relaxation.</p>
+						</div>
+					</div>
+				</div>
+				<!-- //blog grid -->
+				<!-- blog grid -->
+				<div class="col-lg-4 col-md-6 mt-lg-0 mt-5">
+					<div class="card border-0 med-blog">
+						<div class="card-header p-0">
+							<a>
+								<img class="card-img-bottom" src="{% static 'images/g2.jpg' %}" alt="image">
+							</a>
+						</div>
+						<div class="card-body border border-top-0">
+							<div class="mb-3">
+								<h5 class="blog-title card-title font-weight-bold m-0">
+									<a>Premium Living Rooms</a>
+								</h5>
+								<div class="blog_w3icon">
+									<span>
+										Jan 16, 2019 - Chennai</span>
+								</div>
+							</div>
+							<p>A spacious living room and bedroom are adjoined in the Premier.
+This is a space designed in the image of sophisticated “Wa”, with paper-covered sliding partitions for a window.</p>
+						</div>
+					</div>
+				</div>
+				<!-- //blog grid -->
+			</div>
+		</div>
+	</section>
+	<!-- //blog -->
+
+	<!-- contact -->
+	<div class="address py-5" id="contact">
+		<div class="container py-xl-5 py-lg-3">
+			<h3 class="title text-center text-bl mb-5" style="color: white">Contact US
+			</h3>
+			<div class="row address-row pt-xl-5 pt-lg-4">
+				<div class="col-lg-6">
+					<div class="address-right p-sm-5 p-4">
+						<div class="address-info wow fadeInRight animated" data-wow-delay=".5s">
+							<h4 class="mb-3">Address</h4>
+							<p>123 Queens Road,
+								<span>Amritsar, INDIA</span>
+							</p>
+						</div>
+						<div class="address-info address-mdl wow fadeInRight animated my-sm-5 my-4" data-wow-delay=".7s">
+							<h4 class="mb-3">Phone </h4>
+							<p>7009292709</p>
+
+						</div>
+						<div class="address-info agileits-info wow fadeInRight animated" data-wow-delay=".6s">
+							<h4 class="mb-3">Mail</h4>
+							<p>
+								<a href="mailto:example@mail.com"> mail@example.com</a>
+							</p>
+							<p>
+								<a href="mailto:example@mail.com"> mail2@example.com</a>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 address-left wow agile fadeInLeft animated mt-lg-0 mt-5" data-wow-delay=".5s">
+					<div class="address-grid p-sm-5 p-4">
+						<h4 class="wow fadeIndown animated mb-3" data-wow-delay=".5s">Get In Touch</h4>
+						<form action="feedback" method="post">
+							<div class="form-group">
+								<input type="text" placeholder="Name" name="name" class="form-control" required="">
+							</div>
+							<div class="form-group">
+								<input type="email" placeholder="Email" name="email" class="form-control" required="">
+							</div>
+							<div class="form-group">
+								<textarea placeholder="Message" name="Message" class="form-control" required=""></textarea>
+							</div>
+							<button type="submit" class="btn">SEND</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //contact -->
+
+	<!-- partners -->
+	<section class="partners text-center py-5">
+		<div class="container py-xl-5 py-lg-3">
+			<h4 class="text-bl font-weight-bold mb-sm-5 mb-4">Trusted by the world's best companies</h4>
+			<ul class="list-unstyled partners-icon pt-5">
+				<li>
+					<span class="fa fa-ravelry clr1"></span>
+				</li>
+				<li>
+					<span class="fa fa-meetup clr2"></span>
+				</li>
+				<li>
+					<span class="fa fa-eercast clr3"></span>
+				</li>
+				<li>
+					<span class="fa fa-pied-piper clr4"></span>
+				</li>
+				<li>
+					<span class="fa fa-yoast clr5"></span>
+				</li>
+				<li>
+					<span class="fa fa-superpowers clr6"></span>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<!-- //partners -->
+{% include 'footer.html' %}
+</body>
+</html>

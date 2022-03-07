@@ -1,0 +1,371 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room Details</title>
+    {% include 'headerfiles.html' %}
+    <script src="{% static 'jsrating/jquery.rateyo.min.js' %}" type="text/javascript"></script>
+    <link href="{% static 'cssrating/jquery.rateyo.min.css' %}" rel="stylesheet" type="text/css"/>
+    <script>
+
+        /////Function to get Average Rating from Database//////
+        function getavg(from, roomid) {
+            var xml = new XMLHttpRequest();
+
+            xml.onreadystatechange = function () {
+                if (xml.readyState == 4 && xml.status == 200) {
+                    var response = xml.responseText.trim();
+
+                    console.log("average: " + response);
+                    /////Create rating bar that shows average rating/////
+                    if (from == 'new') {
+                        $('#averagerating').rateYo({
+                            rating: response,
+                            readOnly: true
+                        });
+                        response = Math.round(response * 10) / 10;
+                        document.getElementById('avg_rating').innerHTML = response + '/5';
+                    } else {
+                        $('#averagerating').rateYo('rating', response);
+                        document.getElementById('avg_rating').innerHTML = response + '/5';
+                    }
+                }
+            };
+            xml.open('GET', 'ajax_avg_rating?roomid=' + roomid, true);
+            xml.send();
+        }
+
+        function addReview() {
+            var formdata = new FormData();
+            formdata.append('roomid', document.getElementById('roomid').value);
+            formdata.append('review', document.getElementById('review').value);
+            var xml = new XMLHttpRequest();
+            xml.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    showReviews({{ roomid }});
+                    document.getElementById('review').value = "";
+                }
+            };
+            xml.open('POST', 'addReview', true);
+            xml.send(formdata);
+        }
+
+        function showReviews(roomid) {
+            var xml = new XMLHttpRequest();
+            xml.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var ar = JSON.parse(this.response);
+                    var s = "<div class='row'>";
+                    for (var i = 0; i < ar.length; i++) {
+                        s += "<div class='col-md-12 text-center' style='margin:7px 0px;padding:10px;'>";
+                        s += "<h3 style='letter-spacing:2px;'>" + ar[i]['review'] + "</h3>";
+                        s += "<a href=''><strong>" + ar[i]['useremail'] + "</strong></a>";
+                        s += "</div>";
+                    }
+                    s += "</div>";
+                    document.getElementById('output_Review').innerHTML = s;
+                }
+            };
+            xml.open('GET', 'showReviews?roomid=' + roomid, true);
+            xml.send();
+        }
+
+        /////Create Rating Bar and add onclick listener/////
+        $('#giverating').rateYo({
+
+            halfStar: true,
+            onSet: function (rating, rateYoInstance) {
+                addRating(rating);
+            }
+        });
+        {#alert('ok');#}
+        /////Create Average Rating Bar/////
+        $('#averagerating').rateYo({
+            rating: 0,
+            readOnly: true
+        });
+        {#document.getElementById('avg_rating').innerHTML = '0/5';#}
+
+        ////Function to Add Rating to Database//////
+        function addRating(score) {
+            alert('score: ' + score);
+
+            var xml = new XMLHttpRequest();
+
+            xml.onreadystatechange = function () {
+                if (xml.readyState == 4 && xml.status == 200) {
+                    var response = xml.responseText.trim();
+
+                    if (response == "success") {
+                        getavg('old');
+                    } else {
+                        alert("Failed to add rating");
+                    }
+                }
+            };
+            xml.open('GET', './AddRating?score=' + score, true);
+            xml.send();
+            document.getElementById('newratingtext').innerHTML = score + '/5';
+        }
+
+        function viewroomphotos(roomid) {
+            var xml = new XMLHttpRequest();
+            xml.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var output = JSON.parse(this.response);
+                    console.log(output);
+                    var s = "";
+                    s += "<div class=row>";
+
+                    for (var i = 0; i < output.length; i++) {
+                        s += "<div class='col-3'>";
+                        s += "<div class='col-12'>";
+                        s += "<img onclick='showbigimg(this)' src='../static/media/" + output[i]['coverphoto'] + "' style='width:100%;height:100px;margin:10px 0px;cursor:pointer;'>";
+                        s += "<p><h6 class='text-center text-capitalize'>" + output[i]['title'] + "</h6></p>";
+                        s += "</div>";
+                        s += "</div>";
+                    }
+                    s += "</div>";
+                    document.getElementById('roomdetail').innerHTML = s;
+                }
+            };
+            xml.open('GET', '/roomdetail?roomid=' + roomid, true);
+            xml.send();
+        }
+
+        function showbigimg(obj) {
+            document.getElementById('bigimg').src = obj.src;
+        }
+
+
+    </script>
+</head>
+<body onload="showReviews({{ roomid }});getavg('new',{{ roomid }})">
+{% include 'userheader.html' %}
+<div class="row first-info" style="background-image: url({% static 'images/g77.jpg' %})" width="1366px" >
+
+<div class="container">
+    <div class="col-12">
+        <h1 class="text-center headings mb-4">ROOM DETAILS</h1>
+        <div class="row">
+            <div class="form-group col-12">
+                <table class="table">
+                    <tr>
+                        <td rowspan="4">
+                            <img class="mt-2" style="width:400px;height:300px;" src="../static/media/{{ coverphoto }}"
+                                 alt="Something went wrong" name="bigimg" id="bigimg">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><h1 class="text-left text-uppercase text-primary">{{ title }}</h1></th>
+                        <th style="text-align: right;text-decoration-color: crimson;"><a
+                                href="bookingpage?roomid={{ roomid }}" class="btn btn-success">Book Now</a></th>
+
+                    </tr>
+                    <tr>
+                        <th>Price/day:- <span class="text-success">Rs.{{ priceperday }}</span></th>
+                        <th>Email:- <span class="text-success">{{ email }}</span></th>
+                    </tr>
+                    <tr>
+                        <th colspan="2"><p class="text-justify">{{ description }}</p></th>
+                    </tr>
+                    <tr>{% if request.session.useremail %}
+                        <th colspan="2" class="text-left">Rate Now
+                            <div id="giverating"></div>
+                            <h4 class="col-sm-2" id="newratingtext"></h4>
+                            <section class='rating-widget'>
+
+                                <!-- Rating Stars Box -->
+                                <div class='rating-stars text-center'>
+                                    <ul id='stars'>
+                                        <li class='star' title='Poor' data-value='1'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Fair' data-value='2'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Good' data-value='3'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Excellent' data-value='4'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='WOW!!!' data-value='5'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </section>
+                        </th>
+                    {% else %}
+                        <th colspan="2">&nbsp;</th>
+                    {% endif %}
+
+                        <th>
+                            <div id="averagerating"></div>
+                        </th>
+                        <th><h5 class="text-success"><span id="avg_rating">4.5/5</span></h5></th>
+                    </tr>
+                    <tr>
+                        <th colspan="3">
+                            <div class="row" style="margin:10px 0px;">
+                                <div class="col-md-3">
+                                    <div class="col-md-12">
+                                        <img onclick="showbigimg(this)" src="{% static 'media/' %}{{ photo1 }}"
+                                             style="width:100%;height:150px;cursor:pointer;">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="col-md-12">
+                                        <img onclick="showbigimg(this)" src="{% static 'media/' %}{{ photo2 }}"
+                                             style="width:100%;height:150px;cursor:pointer;">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="col-md-12">
+                                        <img onclick="showbigimg(this)" src="{% static 'media/' %}{{ photo3 }}"
+                                             style="width:100%;height:150px;cursor:pointer;">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="col-md-12">
+                                        <img onclick="showbigimg(this)" src="{% static 'media/' %}{{ photo4 }}"
+                                             style="width:100%;height:150px;cursor:pointer;">
+                                    </div>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div id="roomdetail"></div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <h1>REVIEWS</h1><br>
+            {% if request.session.useremail %}
+                <div class="form-group">
+                    <input type="hidden" name="roomid" id="roomid" value="{{ roomid }}">
+                    <textarea name="review" id="review" class="form-control"></textarea>
+                    <button type="button" onclick="addReview()" style="margin: 6px 0px;" class="btn btn-success">
+                        SUBMIT
+                    </button>
+                </div>
+            {% endif %}
+            <div class="col-md-12">
+                <div id="output_Review"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% include 'footer.html' %}
+<style>
+
+    /* Rating Star Widgets Style */
+    .rating-stars ul {
+        list-style-type: none;
+        padding: 0;
+
+        -moz-user-select: none;
+        -webkit-user-select: none;
+    }
+
+    .rating-stars ul > li.star {
+        display: inline-block;
+
+    }
+
+    /* Idle State of the stars */
+    .rating-stars ul > li.star > i.fa {
+        font-size: 2.5em; /* Change the size of the stars */
+        color: #ccc; /* Color on idle state */
+    }
+
+    /* Hover state of the stars */
+    .rating-stars ul > li.star.hover > i.fa {
+        color: #FFCC36;
+    }
+
+    /* Selected state of the stars */
+    .rating-stars ul > li.star.selected > i.fa {
+        color: #FF912C;
+    }
+
+</style>
+<script>
+    $(document).ready(function () {
+
+        /* 1. Visualizing things on Hover - See next part for action on click */
+        $('#stars li').on('mouseover', function () {
+            var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+            // Now highlight all the stars that's not after the current hovered star
+            $(this).parent().children('li.star').each(function (e) {
+                if (e < onStar) {
+                    $(this).addClass('hover');
+                }
+                else {
+                    $(this).removeClass('hover');
+                }
+            });
+
+        }).on('mouseout', function () {
+            $(this).parent().children('li.star').each(function (e) {
+                $(this).removeClass('hover');
+            });
+        });
+
+
+        /* 2. Action to perform on click */
+        $('#stars li').on('click', function () {
+            var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+            var stars = $(this).parent().children('li.star');
+
+            for (i = 0; i < stars.length; i++) {
+                $(stars[i]).removeClass('selected');
+            }
+
+            for (i = 0; i < onStar; i++) {
+                $(stars[i]).addClass('selected');
+            }
+
+            // JUST RESPONSE (Not needed)
+            var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+            var msg = "";
+            if (ratingValue > 1) {
+                msg = "Thanks! You rated this " + ratingValue + " stars.";
+            }
+            else {
+                msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+            }
+            responseMessage(ratingValue,{{ roomid }});
+
+        });
+
+
+    });
+
+
+    function responseMessage(rateme,roomid) {
+        var xml = new XMLHttpRequest();
+        xml.onreadystatechange = function () {
+            if(this.readyState==4 && this.status==200)
+            {
+                window.location.href = "/roomdetail?roomid="+roomid;
+            }
+        };xml.open('GET','ajax_addrating?rate='+rateme +'&roomid='+roomid,true);
+        xml.send();
+    }
+</script>
+
+</body>
+</html>

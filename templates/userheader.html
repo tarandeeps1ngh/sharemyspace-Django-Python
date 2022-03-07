@@ -1,0 +1,78 @@
+<!-- main -->
+<div id="home">
+    <!-- header -->
+    <header>
+        <div class="container-fluid">
+            <div class="header d-md-flex justify-content-between align-items-center py-sm-3 py-2 px-xl-5 px-lg-3 px-2">
+                <!-- logo -->
+                <div id="logo">
+                    <h1><a href="/">Share My Space</a></h1>
+                </div>
+                <!-- //logo -->
+                <!-- nav -->
+                <div class="nav_w3ls">
+                    <nav>
+                        <label for="drop" class="toggle toogle-2">Menu</label>
+                        <input type="checkbox" id="drop"/>
+                        <ul class="menu">
+                            <li class="my-0"><a href="/"><b>Home&nbsp&nbsp&nbsp&nbsp&nbsp</b></a></li>
+                            <li class="mx-lg-4 mx-md-3 my-md-0 my-2"><a href="searchroom"><b>Search Room</b></a></li>
+                            <li class="mx-lg-4 mx-md-3 my-md-0 my-2"><a href="mybooking"><b>My Booking</b></a></li>
+                            {% if request.session.usertype == 'Landlord' %}
+                                <li>&nbsp&nbsp&nbsp&nbsp&nbsp</li>
+                                <li>
+                                    <!-- First Tier Drop Down -->
+                                    <label for="drop-2" class="toggle">Room <span class="fa fa-angle-down"
+                                                                                  aria-hidden="true"></span>
+                                    </label>
+                                    <a href="#"><b>Room</b> <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                                    <input type="checkbox" id="drop-2"/>
+                                    <ul>
+                                        <li><a href="addroom" class="drop-text">Add Room</a></li>
+                                        <li><a href="viewroom" class="drop-text">View Room</a></li>
+                                    </ul>
+                                </li>
+                                <li>&nbsp&nbsp&nbsp&nbsp&nbsp</li>
+                            {% endif %}
+                            ..................
+                            <li class="mx-lg-4 mx-md-3 my-md-0 my-2">
+                                <!-- First Tier Drop Down -->
+                                <label for="drop-3" class="toggle">Login <span class="fa fa-angle-down"
+                                                                               aria-hidden="true"></span>
+                                </label>
+                                <a href="#"><b>Settings</b> <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                                <input type="checkbox" id="drop-3"/>
+                                <ul>
+                                    <li><a href="openchangeuserpass" class="drop-text">Change Password</a></li>
+                                    <li><a href="logoutuser" class="drop-text">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- //nav -->
+                <div class="header-top_w3layouts text-center">
+                   
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- //header -->
+
+    <!-- banner -->
+    <div class="banner_w3lspvt">
+        <div class="csslider infinity" id="slider1">
+            <input type="radio" name="slides" checked="checked" id="slides_1"/>
+            <input type="radio" name="slides" id="slides_2"/>
+            <input type="radio" name="slides" id="slides_3"/>
+            <ul class="banner_slide_bg">
+                <li class="banner-top1" style="min-height: 77px;">
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- //banner -->
+</div>
+<!-- //main -->
+

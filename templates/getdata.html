@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Admin Data</title>
+    {% include 'headerfiles.html'  %}
+</head>
+<body>
+    {% include "adminheader.html" %}
+    <div class="row first-info" style="background-image: url({% static 'images/back3.jpg' %})" >
+
+<div class="container">
+<h1 align="center"><b>EDIT ADMIN</b></h1>
+    <br>
+    <form action="save" method="get">
+    <div class="form-group">
+        Enter Email
+        <input readonly="true" type="text" value="{{ Email }}" name="textbox1" class="form-control">
+    </div>
+
+    <div class="form-group">
+         Select Admin
+            <select name="type">
+                <option {% if Type == 'ADMIN' %} selected {% endif %}>ADMIN</option>
+                <option {% if Type == 'SUPER ADMIN' %} selected {% endif %}>SUPER ADMIN</option>
+                <option {% if Type == 'LIMITED USER' %} selected {% endif %}>LIMITED USER</option>
+            </select>
+    </div>
+
+<br>
+
+    <div class="form-group">
+        <input type="submit" class="btn btn-success" value="submit">
+    </div>
+    </form>
+
+</div>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

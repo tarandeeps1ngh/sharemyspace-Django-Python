@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add News</title>
+{% include 'headerfiles.html' %}
+</head>
+<body>
+{% include 'adminheader.html' %}
+<div class="row first-info" style="background-image: url({% static 'images/flower2.jpg' %})" >
+
+<div class="container">
+    <br>
+    <h1 align="center" style="background-color: pink"><b>ADD NEWS</b></h1>
+    <br><br>
+<br>
+    <form action="insertnews" method="get" id="form1">
+        <div class="form-group">
+           <b>Enter Title</b>
+            <input type="text" name="textbox1" class="form-control" data-rule-required="true">
+        </div>
+
+        <div class="form-group">
+            <b>Enter Description</b>
+            <input type="text" name="textbox2" class="form-control" data-rule-required="true">
+        </div>
+
+        <div class="form-group">
+<br>
+            <input type="submit" class="btn btn-success" value="SUBMIT">
+        </div>
+
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+    </form>
+</div>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

@@ -1,0 +1,302 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Now</title>
+  {% include 'headerfiles.html'  %}
+
+    <script type="text/javascript">
+        function preventBack() {
+            window.history.forward();
+        }
+
+        setTimeout("preventBack()", 0);
+        window.onunload = function () {
+            null
+        };
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#myform1').validate();
+        });
+        var dayslist = new Array();
+        $(function () {
+            {% for i in dayslist %}
+                var k = (new Date('{{ i }}'));
+                var dd = k.getDate();
+                var mm = k.getMonth() + 1;
+                var yy = k.getFullYear();
+                var s = mm + "/" + dd + "/" + yy;
+                {#console.log(s);#}
+                dayslist.push(s);
+                {#console.log(dayslist);#}
+            {% endfor %}
+
+
+            function unavailable(date) {
+                var dmy = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
+                if ($.inArray(dmy, dayslist) == -1) {
+                    return [true, ""];
+                } else {
+                    return [false, 'Unavailable'];
+                }
+            }
+
+            $("#fromdate").datepicker({
+                dateFormat: "mm/dd/yy",
+                beforeShowDay: unavailable,
+                minDate: "+1D",
+                maxDate: "25D"
+            });
+
+            var dateFormat = "mm/dd/yy",
+                from = $("#fromdate")
+                    .datepicker({
+                        defaultDate: "+1w",
+                        changeMonth: true,
+                        numberOfDays: 25
+                    })
+                    .on("change", function () {
+                        to.datepicker("option", "minDate", getDate(this));
+                    }),
+                to = $("#todate").datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfDays: 25,
+                    beforeShowDay: unavailable
+                })
+                    .on("change", function () {
+                        from.datepicker("option", "maxDate", getDate(this));
+                    });
+
+            function getDate(element) {
+                var date;
+                try {
+                    date = $.datepicker.parseDate(dateFormat, element.value);
+                } catch (error) {
+                    date = null;
+                }
+                return date;
+            }
+        });
+
+        {#$(function () {#}
+        {#    $("#todate").datepicker({ minDate: "+1D", maxDate: "+1M +10D" });#}
+
+        function getTotalCost() {
+
+            if (document.getElementById('fromdate').value != '' && document.getElementById('todate').value != '') {
+                var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+                var firstDate = new Date(document.getElementById('fromdate').value);
+                var secondDate = new Date(document.getElementById('todate').value);
+
+                var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+
+                if (diffDays == 0) {
+                    document.getElementById('totalcost').value = parseFloat(document.getElementById('priceperday').value);
+                } else {
+                    document.getElementById('totalcost').value = parseFloat(document.getElementById('priceperday').value) * diffDays;
+                }
+                document.getElementById('alldays').value = getDateArray(firstDate, secondDate);
+            }
+        }
+
+        var getDateArray = function (start, end) {
+
+            var
+                arr = new Array(),
+                dt = new Date(start);
+
+            while (dt <= end) {
+                var day = 0;
+                var month = 0;
+                var year = 0;
+                day = dt.getDate();
+                month = dt.getMonth() + 1;
+                year = dt.getFullYear();
+                var k = year + '-' + month + '-' + day;
+                arr.push(k);
+                {#arr.push(new Date(dt));#}
+                dt.setDate(dt.getDate() + 1);
+            }
+            return arr;
+        }
+
+        function checkavailability() {
+            var roomid = document.getElementById('roomid').value;
+            var fromdate = document.getElementById('fromdate').value;
+            var todate = document.getElementById('todate').value;
+            var xml = new XMLHttpRequest();
+            xml.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var ar = JSON.parse(this.response);
+                    {#console.log(ar);#}
+                    if(ar['error_date']==1)
+                    {
+                        document.getElementById('error_date').innerHTML = 'This room is Booked for these Dates.Please Select another Dates or other Room.';
+                        document.getElementById('btn_pay').style.display = 'none';
+                    }
+                    else
+                    {
+                        document.getElementById('error_date').innerHTML = "Room Available for these dates";
+                        document.getElementById('btn_pay').style.display = 'block';
+                    }
+                }
+            };
+            xml.open('GET', '/checkavailability?fromdate='+fromdate+'&todate='+todate+'&roomid='+roomid, true);
+            xml.send();
+        }
+    </script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        function pay() {
+
+            var formdata = new FormData();
+            formdata.append('roomid', document.getElementById('roomid').value);
+            formdata.append('priceperday', document.getElementById('priceperday').value);
+            formdata.append('alldays', document.getElementById('alldays').value);
+            formdata.append('bookername', document.getElementById('bookername').value);
+            formdata.append('mobileno', document.getElementById('mobileno').value);
+            formdata.append('noofperson', document.getElementById('noofperson').value);
+            formdata.append('totalcost', document.getElementById('totalcost').value);
+            formdata.append('fromdate', document.getElementById('fromdate').value);
+            formdata.append('todate', document.getElementById('todate').value);
+            formdata.append('paymentmode', document.getElementById('paymentmode').value);
+
+            var grandtotal = parseFloat(document.getElementById('totalcost').value) * 100;
+            if(document.getElementById('paymentmode').value=='Cash')
+            {
+                 var xml = new XMLHttpRequest();
+                    xml.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var ar = JSON.parse(this.response);
+                            window.location.href = "/confirmbooking?bookingid=" + ar['bookingid'];
+                        }
+                    };
+                    xml.open('POST', '/bookingaction', true);
+                    xml.send(formdata);
+            }
+            else
+            {
+                var options = {
+                "key": "rzp_test_dRWiKHS7zr2Gki",
+                "amount": grandtotal,
+                "name": "Share my Space",
+                "description": "Online Payment System",
+                "image": "http://ecourses.aec.edu.in/aditya/images/po4.png",
+                "handler": function (response) {
+                    //alert(response.razorpay_payment_id);
+                    if (response.razorpay_payment_id == "") {
+                        //alert('Failed');
+                        {#window.location.href = "bookingaction?status=failed";#}
+                    } else {
+                        //alert('Success');
+                        {#window.location.href = "bookingaction?status=success&&gt=" + grandtotal;#}
+                    }
+                    var xml = new XMLHttpRequest();
+                    xml.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var ar = JSON.parse(this.response);
+                            window.location.href = "/confirmbooking?bookingid=" + ar['bookingid'];
+                        }
+                    };
+                    xml.open('POST', '/bookingaction', true);
+                    xml.send(formdata);
+                },
+                "prefill": {
+                    "name": "",
+                    "email": ""
+                },
+                "notes": {
+                    "address": ""
+                },
+                "theme": {
+                    "color": "#F37254"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+            }
+
+        }
+    </script>
+</head>
+<body>
+{% include 'userheader.html' %}
+<div class="row first-info" style="background-image: url({% static 'images/back3.jpg' %})" width="1366px" >
+
+<div class="container">
+    <div class="col-6 offset-3">
+        <h1 class="text-center"><b>BOOK ROOM</b></h1>
+        <form action="" method="POST" enctype="multipart/form-data" id="myform1">
+            {% csrf_token %}
+            <div class="form-group">
+
+                <input class="form-control" type="hidden" name="roomid" id="roomid" value="{{ roomid }}">
+                <label>Price Per Day</label>
+                <input class="form-control" type="text" name="priceperday" id="priceperday" value="{{ priceperday }}">
+                <input type="hidden" name="alldays" id="alldays">
+                <label>Email</label>
+                <input class="form-control" readonly value="{{ email }}" type="text" name="email" id="email"><br>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label>From</label>
+                    <input type="text" class="form-control" name="fromdate" onchange="getTotalCost()" id="fromdate"
+                           data-rule-required="true"
+                           data-msg-required="Please Enter Date">
+                </div>
+                <div class="col-4">
+                    <label>To</label>
+                    <input type="text" class="form-control" name="todate" onchange="getTotalCost()" id="todate"
+                           data-rule-required="true"
+                           data-msg-required="Please Enter Date">
+                </div>
+                <div class="col-md-4">
+                    <label>&nbsp;</label>
+                    <button type="button" onclick="checkavailability()" class="btn btn-warning">Check Availability
+                    </button>
+                </div>
+                <label class="error" id="error_date"></label>
+            </div>
+            <div class="form-group">
+                <label>No. of Person/s</label>
+                <input class="form-control" type="number" name="noofperson" id="noofperson" data-rule-required="true"
+                       data-msg-required="Please Enter No. of Person/s">
+            </div>
+
+            <div class="form-group">
+                <label>Booker Name</label><br>
+                <input class="form-control" type="text" name="bookername" id="bookername" data-rule-required="true"
+                       data-msg-required="Please Enter Booker Name">
+            </div>
+            <div class="form-group">
+                <label>Mobile No.</label><br>
+                <input class="form-control" type="number" name="mobileno" id="mobileno" data-rule-required="true"
+                       data-msg-required="Please Enter Mobile Number">
+            </div>
+            <div class="form-group">
+                <label>Total Cost</label><br>
+                <input class="form-control" id="totalcost" type="number" name="totalcost" readonly><br>
+            </div>
+            <div class="form-group">
+                <label>Payment Mode</label><br>
+                <select class="form-control" id="paymentmode" name="paymentmode" >
+                    <option value="Cash">Cash</option>
+                    <option value="Online">Online</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <button type="button" class="btn btn-danger" style="display: none;" id="btn_pay" onclick="pay()">Proceed To Pay</button>
+            </div>
+        </form>
+        <div id="msg"></div>
+    </div>
+</div>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

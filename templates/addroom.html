@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Room</title>
+   {% include 'headerfiles.html' %}
+</head>
+<body>
+{% include "userheader.html" %}
+<div class="row first-info" style="background-image: url({% static 'images/back3.jpg' %})" width="1366px">
+
+<div class="container">
+    <h1 align="center"><b>ADD ROOM</b></h1>
+    <br>
+    <form action="insertroom" method="post" id="form1" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            Category Name
+            <select name="catname" data-rule-required="true">
+                {% for row in x %}
+                    <option value="{{ row.catname }}">{{ row.catname }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            Enter Title
+            <input type="text" name="title" class="form-control" data-rule-required="true">
+        </div>
+
+        <div class="form-group">
+            Enter Priceperday
+            <input type="text" name="ppd" class="form-control" data-rule-required="true">
+        </div>
+
+        <div class="form-group">
+            Enter Description
+            <input type="text" name="description" class="form-control" data-rule-required="true">
+        </div>
+        <div class="form-group">
+            Add cover photo
+            <input type="file" name="coverphoto" class="form-control" data-rule-required="true">
+        </div>
+
+        <div class="form-group">
+            City
+            <input type="text" name="city" class="form-control" data-rule-required="true">
+        </div>
+        <div class="form-group">
+            Address
+            <input type="text" name="address" class="form-control" data-rule-required="true">
+        </div>
+        <div class="form-group">
+            Choose Photo 1
+            <input type="file" name="photo1">
+        </div>
+        <div class="form-group">
+            Choose Photo 2
+            <input type="file" name="photo2">
+        </div>
+        <div class="form-group">
+            Choose Photo 3
+            <input type="file" name="photo3">
+        </div>
+        <div class="form-group">
+            Choose Photo 4
+            <input type="file" name="photo4">
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-success" value="ADD">
+        </div>
+    </form>
+</div>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

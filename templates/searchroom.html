@@ -1,0 +1,86 @@
+
+
+
+
+
+
+
+
+{%load staticfiles%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>search room</title>
+     {% include 'headerfiles.html' %}
+    <script>
+        function search() {
+            var formdata = new FormData();
+            formdata.append('city', document.getElementById('city').value);
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var ar = JSON.parse(this.response);
+                    console.log(ar);
+                    var s = "<div class=row>";
+                    for (var i = 0; i < ar.length; i++) {
+                        s += "<div class='col-4 mydiv1'>";
+                        s += "<a href='/roomdetail?roomid=" + ar[i]['roomid'] + "'><div class='col-12 inner_roomdiv'>";
+                        s += "<h5 class='text-center'>" + ar[i]['title'] + "</h5>";
+                        s += "<img src='../static/media/" + ar[i]['coverphoto'] + "' style='width:100%;height:200px;'>";
+                        s += "<h6>Price/day :- <span class='text-success'>Rs. " + ar[i]['priceperday'] + "</span></h6>";
+                        s += "</a></div>";
+                        s += "</div>";
+                    }
+                    s += "</div>";
+                    document.getElementById('output').innerHTML = s;
+                }
+            };
+            xmlhttp.open("POST", "/roomsearchaction", true);
+            xmlhttp.send(formdata);
+        }
+
+        function getallcityname() {
+            var xml = new XMLHttpRequest();
+            xml.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var availableTags = [];
+                    availableTags = JSON.parse(this.responseText);
+                    console.log(typeof(availableTags));
+                    console.log(availableTags);
+                    $("#city").autocomplete({
+                        source: availableTags
+                    });
+                }
+            };
+            xml.open('GET', '/getallcityname', true);
+            xml.send();
+        }
+    </script>
+</head>
+<body onload="getallcityname()">
+{% include 'userheader.html' %}
+<div class="row first-info" style="background-image: url({% static 'images/back3.jpg' %})" width="1366px" >
+
+<div class="container" >
+    <div class="col-12">
+        <h1 class="text-center headings mb-4"><b>SEARCH ROOM</b></h1>
+        <div class="row">
+            <div class="form-group col-6 offset-3" id="form1">
+                {#                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>#}
+                <input type="text" class="form-control" name="city" id="city" placeholder="Search"
+                       data-rule-required="true"
+                       data-msg-required="Please Enter City">
+            </div>
+            <div class="form-group col-1">
+                <button type="button" onclick="search()" class="btn btn-info">GO</button>
+            </div>
+        </div>
+        <div id="output"></div>
+    </div>
+</div>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>
