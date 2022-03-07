@@ -1,0 +1,1 @@
+Share My Space is a WebApp Develeped using Python and Django framework. It allow  the user to rent a room or apartment in a particular locality by searching through the database. This Project also makes use of HTML, CSS, JavaScript and BootStrap.
